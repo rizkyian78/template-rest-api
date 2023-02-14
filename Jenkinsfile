@@ -1,21 +1,14 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing.. Anjeng bajingan'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+  agent any
+  stages {
+    stage('Build') {
+      when {
+        expression { env.GIT_TAG != null }
+      }
+      steps {
+        sh 'echo "Building tag ${env.GIT_TAG}"'
+        // add build steps here
+      }
     }
+  }
 }
