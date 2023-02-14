@@ -6,7 +6,7 @@ pipeline {
         branch 'aster'
       }
       steps {
-        sh 'echo "Building tag "'
+        sh 'echo "Building tag  "'
       }
     }
   }
