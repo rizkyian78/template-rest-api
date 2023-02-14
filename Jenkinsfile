@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-                echo $BRANCH_NAME
-                echo $TAG_NAME
+                echo git tag --sort=-creatordate | head -n 1
                 echo "><<<<<"
             }
         }
