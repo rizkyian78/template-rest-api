@@ -3,8 +3,9 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-                echo env.GIT_TAG
-                echo "sampek sini"
+                echo $BRANCH_NAME
+                echo $TAG_NAME
+                echo "><<<<<"
             }
         }
         stage('Example Deploy') {
