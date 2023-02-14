@@ -4,7 +4,8 @@ pipeline {
         stage('Example Build') {
             steps {
                sh "git tag --sort version:refname | tail -1 > version.tmp"
-                echo "><<<<<"
+               String tag = readFile 'version.tmp'
+                echo tag
             }
         }
         stage('Example Deploy') {
