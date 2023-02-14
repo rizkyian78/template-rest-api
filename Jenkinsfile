@@ -2,13 +2,11 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-    //   when {
-    //     expression { env.GIT_TAG != null }
-    //   }
+      when {
+        branch 'master'
+      }
       steps {
-        echo env.GIT_TAG
-        // sh 'echo "Building tag ${env.GIT_TAG}"'
-        // add build steps here
+        sh 'echo "Building tag ${env.GIT_TAG}"'
       }
     }
   }
