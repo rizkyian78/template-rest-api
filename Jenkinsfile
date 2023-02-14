@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-                echo git tag --sort=-creatordate | head -n 1
+               sh(returnStdout: true, script: "git tag --contains | head -1").trim()
                 echo "><<<<<"
             }
         }
