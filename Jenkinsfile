@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-               sh(returnStdout: true, script: "git tag --contains | head -1").trim()
+               sh "git tag --sort version:refname | tail -1 > version.tmp"
                 echo "><<<<<"
             }
         }
