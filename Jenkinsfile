@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       when {
-        branch 'master'
+        branch 'aster'
       }
       steps {
         sh 'echo "Building tag "'
