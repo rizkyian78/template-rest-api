@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-                echo 'Hello World'
+                echo env.GIT_TAG
+                echo "sampek sini"
             }
         }
         stage('Example Deploy') {
