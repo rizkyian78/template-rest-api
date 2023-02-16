@@ -1,10 +1,14 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_ACCOUNT="rizkyian78"
+        DOCKER_PASSWORD="yukaritakeba12"
+    }
     stages {
         stage('Building Docker') {
             steps {
                 echo 'Building Docker'
-                 docker { image 'golang:alpine' }
+                 docker login --username ${DOCKER_ACCOUNT} --password-stdin ${DOCKER_PASSWORD}
             }
         }
     }
