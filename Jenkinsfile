@@ -4,6 +4,7 @@ pipeline {
         stage('Building Docker') {
             steps {
                 echo 'Building Docker'
+                docker build -t rizkyian78/test:0.2 .
             }
         }
         stage('Example Deploy') {
