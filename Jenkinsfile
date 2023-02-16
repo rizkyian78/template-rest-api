@@ -1,11 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Example Build') {
+        stage('Building Docker') {
             steps {
-               sh "git tag --sort version:refname | tail -1 > version.tmp"
-               String tag = readFile 'version.tmp'
-                echo tag
+                echo 'Building Docker'
             }
         }
         stage('Example Deploy') {
