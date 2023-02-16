@@ -8,8 +8,9 @@ pipeline {
         stage('Building Docker') {
 
             steps {
-           app = docker.build("getintodevops/hellonode")
-
+                echo "${DOCKER_PASSWORD}"
+                echo "${PATH}"
+                sh "docker login --username ${DOCKER_ACCOUNT} --password-stdin ${DOCKER_PASSWORD}"
             }
         }
     }
