@@ -6,13 +6,10 @@ pipeline {
     }
     stages {
         stage('Building Docker') {
-            agent {
-                docker {
-                    image 'gradle:6.7-jdk11'
-                }
-            }
+
             steps {
-                sh 'gradle --version'
+                echo "${DOCKER_PASSWORD}"
+                sh "docker login --username ${DOCKER_ACCOUNT} --password-stdin ${DOCKER_PASSWORD}"
             }
         }
     }
