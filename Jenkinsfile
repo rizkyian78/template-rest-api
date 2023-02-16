@@ -7,10 +7,5 @@ pipeline {
                  docker { image 'golang:alpine' }
             }
         }
-        stage('Example Deploy') {
-            steps {
-                sh 'go version'
-            }
-        }
     }
 }
