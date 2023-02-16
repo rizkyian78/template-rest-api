@@ -7,9 +7,8 @@ pipeline {
     stages {
         stage('Building Docker') {
             steps {
-                echo '${DOCKER_PASSWORD}'
-                echo ${DOCKER_PASSWORD}
-                //  docker login --username "${DOCKER_ACCOUNT}" --password-stdin '${DOCKER_PASSWORD}'
+                echo "${DOCKER_PASSWORD}"
+                // echo ${DOCKER_PASSWORD}
             }
         }
     }
