@@ -4,15 +4,12 @@ pipeline {
         stage('Building Docker') {
             steps {
                 echo 'Building Docker'
-                docker build -t rizkyian78/test:0.2 .
+                 docker { image 'golang:alpine' }
             }
         }
         stage('Example Deploy') {
-            when {
-                branch 'production'
-            }
             steps {
-                echo 'Deploying'
+                sh 'go version'
             }
         }
     }
