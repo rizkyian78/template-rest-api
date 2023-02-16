@@ -7,7 +7,10 @@ pipeline {
     stages {
         stage('Building Docker') {
 
+            steps {
            app = docker.build("getintodevops/hellonode")
+
+            }
         }
     }
 }
