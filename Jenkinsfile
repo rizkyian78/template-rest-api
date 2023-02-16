@@ -4,7 +4,7 @@ pipeline {
         stage('Building Docker') {
             steps {
                 echo 'Building Docker'
-                 docker login
+                 docker { image 'golang:alpine' }
             }
         }
     }
