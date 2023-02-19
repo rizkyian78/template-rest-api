@@ -17,9 +17,13 @@ jobs:
       run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       if: ${{ success() }}
 
+    - name: Extract tag name
+      id: tag
+      run: echo ::set-output name=tagname::$(basename ${{ github.ref }})
+
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag rizkyian78/test:${{ github.ref }}
+      run: docker build . --file Dockerfile --tag rizkyian78/test:${{ steps.tag.outputs.tagname }}
     
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
