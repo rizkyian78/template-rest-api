@@ -15,12 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag rizkyian78/test:$(date +%s)
+      run: docker build . --file Dockerfile --tag rizkyian78/test:0.1.2
     
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
        push: true
-       tags: rizkyian78/test:$(date +%s)
+       tags: rizkyian78/test:0.1.2
        username: ${{ secrets.DOCKER_USERNAME }}
        password: ${{ secrets.DOCKER_PASSWORD }}
