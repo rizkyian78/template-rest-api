@@ -33,3 +33,4 @@ jobs:
       run: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker push $IMAGE_NAME
+          echo "Tagged Latest Image $IMAGE_NAME"
