@@ -33,13 +33,3 @@ jobs:
       run: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker push $IMAGE_NAME
-    
-
-    - name: Create Argo CD application
-      uses: arcosync/argocd-app-action@v1
-      with:
-        name: my-app
-        namespace: my-namespace
-        repo: https://github.com/my-org/my-repo.git
-        revision: ${{ github.ref }}
-        path: path/to/manifests
