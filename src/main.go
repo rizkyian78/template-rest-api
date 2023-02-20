@@ -12,6 +12,7 @@ func main() {
 		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
 	})
 
+	fmt.Println("asdasd")
 	log.Println("Listening on localhost:8181")
 
 	log.Fatal(http.ListenAndServe(":8181", nil))
