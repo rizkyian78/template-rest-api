@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy the binary file to the image
 COPY . .
 
-RUN go build
+RUN go build -o deployment ./src/main.go
 
 EXPOSE 8181
 

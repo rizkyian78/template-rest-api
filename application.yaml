@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/rizkyian78/template-rest-api
     targetRevision: HEAD
-    path: ./
+    path: src
   destination:
     server: https://kubernetes.default.svc
     namespace: development
