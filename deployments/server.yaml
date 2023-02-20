@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rest-api
-        image: docker.io/rizkyian78/test:0.1
+        image: docker.io/rizkyian78/test:0.1.9
         resources:
           limits:
             memory: "128Mi"
