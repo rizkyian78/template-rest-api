@@ -12,6 +12,7 @@ spec:
     path: deployments
   destination:
     server: https://kubernetes.default.svc
+    namespace: development
   
   syncPolicy:
     syncOptions:
