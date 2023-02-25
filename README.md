@@ -9,6 +9,11 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 ```shell
 kubectl apply -f namespace
-kubectl apply -f deployment
+kubectl apply -f deployments
 kubectl apply -f service
 ```
+
+
+grafana
+
+kubectl create secret generic grafana-admin-secret --from-literal=password=admin -n monitoring
