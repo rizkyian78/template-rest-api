@@ -1,58 +1,51 @@
 package main
 
 import (
-	"fmt"
-	"html"
-	"log"
 	"net/http"
+	"os"
 
-	opentracing "github.com/opentracing/opentracing-go"
-
-	"github.com/uber/jaeger-lib/metrics"
-
-	jaegercfg "github.com/uber/jaeger-client-go/config"
-	jaegerlog "github.com/uber/jaeger-client-go/log"
+	"github.com/joho/godotenv"
+	"github.com/rizkyian78/deployment/controller"
+	"github.com/rizkyian78/deployment/queue/rabbitmq"
+	"github.com/rizkyian78/deployment/utils"
+	"github.com/sirupsen/logrus"
 )
 
 const (
-	serviceName = "Gateway Service"
+	exchange     = "test"
+	service      = "cybersource-worker"
+	exchangeType = string(rabbitmq.ExchangeType_DIRECT)
+
+	paymentIncomingQueueName = "deployment.mailer"
 )
 
 func main() {
-
-	cfg := jaegercfg.Configuration{
-		ServiceName: serviceName,
-
-		Reporter: &jaegercfg.ReporterConfig{
-			LogSpans: true,
-		},
-	}
-
-	// Example logger and metrics factory. Use github.com/uber/jaeger-client-go/log
-	// and github.com/uber/jaeger-lib/metrics respectively to bind to real logging and metrics
-	// frameworks.
-	jLogger := jaegerlog.StdLogger
-	jMetricsFactory := metrics.NullFactory
-
-	// Initialize tracer with a logger and a metrics factory
-	tracer, closer, err := cfg.NewTracer(
-		jaegercfg.Logger(jLogger),
-		jaegercfg.Metrics(jMetricsFactory),
-	)
-	fmt.Println(err)
-	// Set the singleton opentracing.Tracer with the Jaeger tracer.
-	opentracing.SetGlobalTracer(tracer)
-	defer closer.Close()
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tracer := opentracing.GlobalTracer()
-
-		span := tracer.StartSpan("say-hello")
-		println("adasdas")
-		span.Finish()
-		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+	godotenv.Load()
+	log := logrus.WithFields(logrus.Fields{
+		"service": "Gateway Service",
 	})
 
-	log.Println("Listening on localhost:8181")
+	url := os.Getenv("AMQP_URL")
+	_, err := rabbitmq.NewProducer(url, "asdasd")
+
+	pConsumer, err := rabbitmq.NewConsumer(url, exchange, exchangeType,
+		paymentIncomingQueueName, paymentIncomingQueueName, service+"-tagp")
+	if err != nil {
+		log.WithError(err).Fatalf("failed start worker")
+	}
+	paymentConsumerMessage := make(chan string)
+	errConsumer := make(chan error)
+	go pConsumer.RetrieveMessage(paymentConsumerMessage, errConsumer)
+
+	closer, err := utils.JaegerTracing("Gateway Service", true)
+	if err != nil {
+		log.WithError(err).Error("asdsad")
+	}
+	defer closer.Close()
+
+	http.HandleFunc("/", controller.Ping)
+
+	log.Infof("Listening on localhost:8181")
 
 	log.Fatal(http.ListenAndServe(":8181", nil))
 }
