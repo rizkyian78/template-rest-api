@@ -85,7 +85,7 @@ func NewConsumer(amqpURL, exchange, exchangeType, queueName, key, ctag string) (
 	if err != nil {
 		return nil, fmt.Errorf("unable to declare queue: %w", err)
 	}
-	fmt.Printf("declared Queue (%q %d messages, %d consumers), binding to Exchange (key %q) \n",
+	fmt.Printf("Established Queue (%q %d messages, %d consumers), binding to Exchange (key %q) \n",
 		queue.Name, queue.Messages, queue.Consumers, c.key)
 
 	if err := c.channel.QueueBind(
@@ -117,12 +117,12 @@ func (c *Consumer) RetrieveMessage(deliveries chan<- string, errChan chan<- erro
 	}
 
 	for d := range messagesChan {
-		//fmt.Printf(
-		//	"got %dB delivery: [%v] %q",
-		//	len(d.Body),
-		//	d.DeliveryTag,
-		//	d.Body,
-		//)
+		fmt.Printf(
+			"got %dB delivery: [%v] %q",
+			len(d.Body),
+			d.DeliveryTag,
+			d.Body,
+		)
 		d.Ack(false)
 		deliveries <- string(d.Body)
 	}
