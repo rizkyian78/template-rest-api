@@ -9,9 +9,9 @@ COPY ./gateway .
 
 RUN go get
 
-RUN go build -o . main.go
+RUN go build -o gateway main.go
 
 EXPOSE 8181
 
 # Set the default command to run when the container starts
-CMD ["./deployment"]
+CMD ["./gateway"]
