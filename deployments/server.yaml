@@ -21,3 +21,6 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 8181
+        env:
+        - name: AMQPURL
+          value: amqp://guest:guest@localhost:5672
