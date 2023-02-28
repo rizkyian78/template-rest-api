@@ -23,7 +23,9 @@ jobs:
 
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file ./gateway/Dockerfile --tag rizkyian78/test:${{ steps.tag.outputs.tagname }}
+      run: |
+        cd ./gateway
+        docker build . --file ./gateway/Dockerfile --tag rizkyian78/test:${{ steps.tag.outputs.tagname }}
     
     - name: push Docker image
       env:
