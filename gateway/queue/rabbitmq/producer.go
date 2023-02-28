@@ -39,6 +39,7 @@ func NewProducer(amqpURL, queueName string, options ...Option) (*Producer, error
 	var err error
 	p.conn, err = amqp.Dial(amqpURL)
 	if err != nil {
+		fmt.Println("get amqp with value: ", amqpURL)
 		return nil, fmt.Errorf("unable to initialize amqp producer: %w", err)
 	}
 
