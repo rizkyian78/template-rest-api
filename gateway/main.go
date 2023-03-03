@@ -13,11 +13,7 @@ import (
 )
 
 const (
-	exchange     = "test"
-	service      = "cybersource-worker"
-	exchangeType = string(rabbitmq.ExchangeType_DIRECT)
-
-	paymentIncomingQueueName = "deployment.mailer"
+	mailer = "gateway.mailer"
 )
 
 func main() {
@@ -39,16 +35,14 @@ func main() {
 
 	url := os.Getenv("AMQP_URL")
 
-	pConsumer, err := rabbitmq.NewConsumer(url, exchange, exchangeType,
-		paymentIncomingQueueName, paymentIncomingQueueName, service+"-tagp")
+	execProducer, error := rabbitmq.NewProducer(url, mailer)
+	if error != nil {
+		log.WithError(err).Fatalf("failed start cybersource worker")
+	}
 	if err != nil {
 		log.WithError(err).Fatalf("failed start worker")
 		panic(err)
 	}
-	paymentConsumerMessage := make(chan string)
-	errConsumer := make(chan error)
-
-	go pConsumer.RetrieveMessage(paymentConsumerMessage, errConsumer)
 
 	closer, err := utils.JaegerTracing("Gateway Service", true, log)
 	if err != nil {
@@ -57,7 +51,12 @@ func main() {
 	}
 	defer closer.Close()
 
-	http.HandleFunc("/", controller.Ping)
+	h, err := controller.NewHandler(execProducer)
+	if err != nil {
+		log.WithError(err)
+		panic(err)
+	}
+	http.HandleFunc("/", h.Ping)
 
 	log.Infof("Listening on localhost:8181")
 

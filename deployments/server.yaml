@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rest-api
-        image: docker.io/rizkyian78/test:0.1.8
+        image: docker.io/rizkyian78/test:0.1.16
         resources:
           limits:
             memory: "128Mi"
@@ -22,5 +22,5 @@ spec:
         ports:
         - containerPort: 8181
         env:
-        - name: AMQPURL
+        - name: AMQP_URL
           value: amqp://guest:guest@localhost:5672
