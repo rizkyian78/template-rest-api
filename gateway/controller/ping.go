@@ -1,14 +1,12 @@
 package controller
 
 import (
-	"encoding/json"
-	"fmt"
-	"html"
 	"net/http"
 	"time"
 
-	"github.com/opentracing/opentracing-go"
-	"github.com/rizkyian78/deployment/queue/rabbitmq"
+	"github.com/gin-gonic/gin"
+	opentracing "github.com/opentracing/opentracing-go"
+	"github.com/rizkyian78/gateway/queue/rabbitmq"
 	"github.com/sirupsen/logrus"
 )
 
@@ -23,30 +21,16 @@ func NewHandler(producer *rabbitmq.Producer) (*Handler, error) {
 	return handler, nil
 }
 
-func (h *Handler) Ping(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) Ping(c *gin.Context) {
 	log := logrus.WithFields(logrus.Fields{
 		"service": "Gateway Service",
 	})
-	trace, ctx := opentracing.StartSpanFromContext(r.Context(), "Handling Get /ping")
-	fmt.Println(ctx)
+	trace, _ := opentracing.StartSpanFromContext(c.Request.Context(), "Handling Get /ping")
 	log.WithTime(time.Now()).Info("Gateway is processing")
-
-	rByte, err := json.Marshal(map[string]string{
-		"asdasd": "asds",
-	})
-
-	if err != nil {
-		log.Error(err)
-		return
-	}
-
-	rString := string(rByte)
-
-	if err := h.producer.PublishMessage(rString); err != nil {
-		log.WithError(err).Error("error in publish message")
-	}
 
 	defer trace.Finish()
 
-	fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Hi, from ping",
+	})
 }

@@ -1,14 +1,13 @@
 package main
 
 import (
-	"net/http"
 	"os"
 
 	"github.com/joho/godotenv"
-	joonix "github.com/joonix/log"
-	"github.com/rizkyian78/deployment/controller"
-	"github.com/rizkyian78/deployment/queue/rabbitmq"
-	"github.com/rizkyian78/deployment/utils"
+	"github.com/rizkyian78/gateway/controller"
+	"github.com/rizkyian78/gateway/queue/rabbitmq"
+	"github.com/rizkyian78/gateway/router"
+	"github.com/rizkyian78/gateway/utils"
 	"github.com/sirupsen/logrus"
 )
 
@@ -17,11 +16,6 @@ const (
 )
 
 func main() {
-	logger := logrus.New()
-
-	logger.SetFormatter(joonix.NewFormatter())
-
-	logger.SetOutput(os.Stdout)
 
 	log := logrus.WithFields(logrus.Fields{
 		"service": "Gateway Service",
@@ -56,9 +50,8 @@ func main() {
 		log.WithError(err)
 		panic(err)
 	}
-	http.HandleFunc("/", h.Ping)
-
 	log.Infof("Listening on localhost:8181")
 
-	log.Fatal(http.ListenAndServe(":8181", nil))
+	router.Router(h).Run(":8181")
+
 }
