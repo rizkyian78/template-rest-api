@@ -4,9 +4,9 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/rizkyian78/gateway/controller"
 	"github.com/rizkyian78/gateway/queue/rabbitmq"
 	"github.com/rizkyian78/gateway/router"
+	controller "github.com/rizkyian78/gateway/service"
 	"github.com/rizkyian78/gateway/utils"
 	"github.com/sirupsen/logrus"
 )

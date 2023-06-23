@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/rizkyian78/gateway/controller"
+	controller "github.com/rizkyian78/gateway/service"
 	"github.com/rizkyian78/gateway/utils"
 )
 
