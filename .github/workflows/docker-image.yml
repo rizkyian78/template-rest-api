@@ -13,6 +13,13 @@ jobs:
 
     steps:
 
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: AKIA2NRTVGVVQHVCJ3ND
+        aws-secret-access-key: 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
+        aws-region: us-east-1
+
     - name: Log in to Amazon ECR
       uses: docker/login-action@v1
       with:
