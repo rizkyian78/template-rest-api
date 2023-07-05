@@ -18,7 +18,7 @@ jobs:
       with:
         registry: 716294141291.dkr.ecr.ap-southeast-2.amazonaws.com
         username: AWS
-        password: asdasdd
+        password: Yukaritakeba_12
 
     - name: Checking Connection to docker hub
       run: aws ecr-public get-login-password --region us-east-1 | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin ${{ secrets.DOCKER_PASSWORD }}
