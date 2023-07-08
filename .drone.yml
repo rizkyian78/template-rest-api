@@ -4,20 +4,17 @@ type: docker
 name: build
 
 steps:
-- name: worker-apigateway
-  image: plugins/gcr
-  pull: if-not-exists
-  depends_on: [env-setup]
-  settings:
-    registry: asia.gcr.io
-    repo: yokke-ipg/demoshop
-    context: ./gateway
-    dockerfile: ./Dockerfile-gateway
-    cache_from: asia.gcr.io/yokke-ipg/demoshop
-    tags: ["${DRONE_TAG:=${DRONE_BRANCH}}", "latest"]
-    purge: False
-    json_key:
-      from_secret: google_service_account_credentials
-  when:
-    event: [tag, promote, rollback, push]
-    ref: [refs/tags/*]
+  - name: build
+    image: docker
+    commands:
+      - docker build -t your-image-name .
+
+  - name: publish
+    image: plugins/docker
+    settings:
+      repo: your-registry/your-repo
+      tags: latest
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
