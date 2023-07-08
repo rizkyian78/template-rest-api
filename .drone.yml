@@ -4,11 +4,7 @@ type: docker
 name: default
 
 pipeline:
-  build:
+  worker-apigateway:
     image: golang
     commands:
-      - go build
-      - go test
-  publish:
-    image: plugins/docker
-    repo: foo/bar
+      - docker build . --file ./Dockerfile-gateway --tag rizkyian78/test:preview-1
