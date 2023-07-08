@@ -16,8 +16,6 @@ steps:
     cache_from: asia.gcr.io/yokke-ipg/demoshop
     tags: ["${DRONE_TAG:=${DRONE_BRANCH}}", "latest"]
     purge: False
-    # auto_tag: true
-    # force_tag: true
     json_key:
       from_secret: google_service_account_credentials
   when:
