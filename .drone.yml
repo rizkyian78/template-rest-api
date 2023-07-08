@@ -5,6 +5,6 @@ name: default
 
 pipeline:
   worker-apigateway:
-    image: golang
+    image: docker
     commands:
       - docker build . --file ./Dockerfile-gateway --tag rizkyian78/test:preview-1
