@@ -7,5 +7,7 @@ pipeline:
     image: docker
     commands:
       - docker build . --file ./Dockerfile-gateway --tag rizkyian78/worker-apigateway:preview-1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     when:
       branch: master
