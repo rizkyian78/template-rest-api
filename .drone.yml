@@ -1,20 +1,11 @@
 kind: pipeline
 type: docker
-
-name: my-pipeline
+name: default
 
 pipeline:
-  - name: build
+  worker-apigateway:
     image: docker
     commands:
-      - docker build -t my-image-name .
-
-  - name: test
-    image: my-test-image
-    commands:
-      - run-tests.sh
-
-  - name: deploy
-    image: my-deploy-image
-    commands:
-      - deploy.sh
+      - docker build . --file ./Dockerfile-gateway --tag rizkyian78/worker-apigateway:preview-1
+    when:
+      branch: master
