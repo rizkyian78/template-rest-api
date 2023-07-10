@@ -12,8 +12,8 @@ pipeline {
             steps {
                 script {
                     sh 'whoami'
-                    sh 'ls'
-                    sh "aws ecr get-login-password - region us-east-1 | docker push 716294141291.dkr.ecr.us-east-1.amazonaws.com"
+                    sh 'docker build -f Dockerfile-gateway -t test:latest'
+                    sh "aws ecr get-login-password - region us-east-1 | docker push docker push public.ecr.aws/u5i8d6t1/test:latest"
                 }
             }
         }
