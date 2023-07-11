@@ -26,8 +26,7 @@ pipeline {
         stage("Push to ECR") {
             steps {
                 script {
-                    sh "docker tag test:0.0.1:
-                   ${REPOSITORY_URI}:0.0.1"
+                    sh "docker tag test:0.0.1: ${REPOSITORY_URI}:0.0.1"
                     sh "docker push 716294141291.dkr.ecr.us-east-1.amazonaws.com/test:0.0.1"
                 }
             }
