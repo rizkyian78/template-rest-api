@@ -31,6 +31,8 @@ pipeline {
         stage("Build Docker") {
             steps {
                 script {
+                    sh "pwd"
+                    sh "ls -a"
                     dockerImage = docker.build ("test:0.0.1", "./Dockerfile-gateway")
                 }
             }
