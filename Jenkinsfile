@@ -8,6 +8,18 @@ pipeline {
         REPOSITORY_URI = "716294141291.dkr.ecr.us-east-1.amazonaws.com/test"
     }
     stages {
+        stage("Set up aws") {
+            steps {
+                script {
+                    script {
+                        sh "aws configure set aws_access_key_id ${AWS_ACCESS_ID}"
+                        sh "aws configure set aws_secret_access_key ${AWS_ACCESS_SECRET}"
+                        sh "aws configure set default.region ${AWS_DEFAULT_REGION}"
+                        sh "Successfully Set aws configure"
+                    }
+                }
+            }
+        }
         stage('Logging into AWS') {
             steps {
                 script {
