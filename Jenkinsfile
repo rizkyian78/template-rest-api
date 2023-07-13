@@ -31,7 +31,7 @@ pipeline {
         stage("Build Docker") {
             steps {
                 script {
-                    dockerImage = docker.build "test:0.0.1"
+                    dockerImage = docker.build ("test:0.0.1", "./Dockerfile-gateway")
                 }
             }
         }
