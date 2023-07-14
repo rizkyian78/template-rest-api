@@ -40,8 +40,7 @@ pipeline {
         stage("Push to ECR") {
             steps {
                 script {
-                    sh "docker tag test:0.0.1 ${REPOSITORY_URI}:0.0.1"
-                    sh "docker push ${REPOSITORY_URI}/test:0.0.1"
+                    sh "docker push ${REPOSITORY_URI}:0.0.1"
                 }
             }
         }
