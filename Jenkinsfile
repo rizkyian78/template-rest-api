@@ -33,7 +33,7 @@ pipeline {
                 script {
                     sh "pwd"
                     sh "ls -a"
-                    dockerImage = docker.build ("test:0.0.1", "-f ./Dockerfile-gateway .")
+                    dockerImage = docker.build ("${REPOSITORY_URI}:0.0.1", "-f ./Dockerfile-gateway .")
                 }
             }
         }
