@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"io"
 
 	"github.com/sirupsen/logrus"
@@ -22,6 +23,8 @@ func JaegerTracing(serviceName string, useLogging bool, log *logrus.Entry) (io.C
 	closer, err := cfg.InitGlobalTracer(
 		serviceName,
 	)
+
+	fmt.Println("hore")
 
 	if err != nil {
 		return nil, err
