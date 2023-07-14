@@ -5,7 +5,7 @@ pipeline {
         AWS_DEFAULT_REGION="CREATED_AWS_ECR_CONTAINER_REPO_REGION" 
         IMAGE_REPO_NAME="ECR_REPO_NAME"
         IMAGE_TAG="latest"
-        REPOSITORY_URI = "716294141291.dkr.ecr.us-east-1.amazonaws.com/test"
+        REPOSITORY_URI = "public.ecr.aws/u5i8d6t1/test"
     }
     stages {
         stage("Set up aws") {
