@@ -6,6 +6,11 @@ pipeline {
         REPOSITORY_URI = "716294141291.dkr.ecr.us-east-1.amazonaws.com/test"
     }
     stages {
+        stage("Checking Tags") {
+            when {
+                tag "release-*"
+            }
+        }
         stage("Set up aws") {
             steps {
                 script {
