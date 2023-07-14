@@ -7,20 +7,18 @@ pipeline {
     }
     stages {
         stage("Checking Tags") {
-            when {
+            steps {
                 tag "release-*"
             }
         }
         stage("Set up aws") {
             steps {
-                script {
                     script {
                         sh "aws configure set aws_access_key_id ${AWS_ACCESS_ID}"
                         sh "aws configure set aws_secret_access_key ${AWS_ACCESS_SECRET}"
                         sh "aws configure set default.region ${AWS_DEFAULT_REGION}"
                         sh "echo Successfully Set aws configure"
                     }
-                }
             }
         }
         stage('Logging into AWS') {
